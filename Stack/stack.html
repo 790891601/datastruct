@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //栈：栈是一个先进后出的数据结构,
+        //用途：回文、递归实现方式、进制转换
+        function Stack() {
+            this.dataStore = []
+            this.top = 0  //当前长度
+        }
+
+        Stack.prototype = {
+            constructor : Stack,
+            pop : function() {
+                const last = this.dataStore.pop()    
+                this.top-- 
+                return last
+            },
+            push : function(value) {
+                this.dataStore.push(value)
+                return this.dataStore[this.top++]
+            },
+            peek : function() {
+                return this.dataStore[this.top-1]
+            },
+            length : function() {
+                return this.top
+            },
+            reverse : function() {
+                this.dataStore.reverse()
+            }
+        }
+
+        //实现回文
+        // const stack = new Stack()
+        // for(let i = 0; i < 5; ++i) {
+        //     stack.push(i)
+        // }
+
+        // const back = []
+        // stack.dataStore.map(val => {
+        //     back.push(val)
+        // })
+
+        // stack.reverse()
+        
+        // const rst = stack.dataStore.every((val,index) => {
+        //     return val === back[index]
+        // })
+
+        //实现递归
+        //正常递归：阶乘 1-5
+        // function multiply(num) {
+        //     if(num === 1) {
+        //         return 1
+        //     }
+            
+        //     return num * multiply(--num)
+        // }
+        // multiply(5)
+        
+        //stack递归
+        //递归的思想：递归就是一个无限的上楼梯，不过你下楼梯的时候还得往原路下
+        // const stack = new Stack()
+            
+        // let num = 5;
+        // while(num) {
+        //     stack.push(num)
+        //     num--
+        // }
+        
+        // let multiply = 1;
+        // while(stack.peek()) {
+        //     multiply *= stack.pop()
+        // }
+
+        //console.log(multiply)
+
+
+         /*
+            1. 栈可以判断算术表达式中括号是否匹配，编写一个函数，
+            该函数接受一个算术表达式作为参数，返回括号缺失的位置，下面是一个括号不匹配的算法表达式
+            例子：2.3+23/12+(3.141559*0.24
+
+            2.一个算术表达式的后缀形式如下：
+                op1 op2 operator
+                使用两个栈，一个存储操作数，另一个存储操作符，设计并实现一个JavaScript函数，
+                该函数可以将中缀表达式转换成后缀表达式，然后利用栈对该表达式求值。
+
+            3. 现实生活中栈的一个例子是佩兹糖果盒。想象一下你有一盒佩兹糖果,里面塞满了红色、黄色
+            和白色的糖果，但是你不喜欢黄色糖果，使用栈写一段程序，在不改变盒内其他糖果叠放顺序上，
+            将黄色的糖果移出。
+         */
+
+         const stack = new Stack()
+         function lack(expression) {
+             //思路：通过入栈，出栈
+             for(let i = 0; i < expression.length; i++) 
+                stack.push(expression.charAt(i))
+            
+             
+         }
+
+         lack("2.3+(23/12")
+
+        
+    </script>
+</body>
+</html>
