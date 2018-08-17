@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //LinkTable:
+        // null <= header <=> One <=> Two <=> Three => null
+
+        function Node(elementName) {
+            this.elementName = elementName
+            this.next = null
+            this.prev = null
+        }
+
+        function linkTable() {
+            this.node = new Node("header")
+        }
+
+        linkTable.prototype = {
+            constructor : linkTable,
+            insert : function(newElementName) {
+                //Step1:create node
+                const newNode = new Node(newElementName)
+                let { node:nowNode } = this
+                while(nowNode.next !== null) {
+                    nowNode = nowNode.next
+                }
+                //Step2：a => b,  b.prev = a
+                newNode.prev = nowNode
+                //Step3：指针下移
+                nowNode.next = newNode
+            },
+            delete : function(elementName) {
+                const nowNode = this.each(elementName)
+                //nowNode.next === elementName,  nowNode = elementName.next, 
+                nowNode.next = nowNode.next.next 
+                //nowNode.prev = nowNode.prev.prev
+                nowNode.next.prev = nowNode.next.prev.prev
+            },
+            find : function(elementName) {
+                return this.each(elementName).next
+            },
+            each : function(elementName) {
+                const { node:nowNode } = this
+                while(nowNode.next.elementName !== elementName) {
+                    nowNode = nowNode.next
+                }
+
+                return nowNode
+            }
+        }
+
+        const link = new linkTable()
+        
+        //Debug
+        link.insert("One")
+        link.insert("Two")
+        link.insert("There")
+        link.delete("One")
+        link.find("Two")
+        
+        console.log(link)
+    </script>
+</body>
+</html>

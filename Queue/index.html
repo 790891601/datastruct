@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //队列
+        function queue() {
+            this.team = []
+        }
+
+        queue.prototype = {
+            constructor : queue,
+            innerQueue : function(newPeople) {
+                //入队
+                this.team.push(newPeople)
+            },
+            outQueue : function() {
+                //出队
+                return this.team.shift()
+            },
+            peet : function() {
+                //查看第一个人
+                return this.team[0]
+            }
+        }
+
+        //Debug
+        const q = new queue()
+        q.innerQueue("1号")
+        q.innerQueue("2号")
+        q.outQueue()
+        console.log(q.peet())
+
+    </script>
+</body>
+</html>
