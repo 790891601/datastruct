@@ -34,6 +34,8 @@
                 newNode.prev = nowNode
                 //Step3：指针下移
                 nowNode.next = newNode
+
+                this.nowNode = Object.assign({}, this.node)
             },
             delete : function(elementName) {
                 const nowNode = this.each(elementName)
@@ -41,6 +43,8 @@
                 nowNode.next = nowNode.next.next 
                 //nowNode.prev = nowNode.prev.prev
                 nowNode.next.prev = nowNode.next.prev.prev
+
+                this.nowNode = Object.assign({}, this.node)
             },
             find : function(elementName) {
                 return this.each(elementName).next
@@ -52,19 +56,66 @@
                 }
 
                 return nowNode
+            },
+            advance : function(n) {
+                //向前移动n个节点
+                for(let i = 0; i < n; i++) {
+                    if(this.nowNode.prev === null) {
+                        break
+                    }
+                    this.nowNode = this.nowNode.prev
+                }
+                return this.nowNode
+            },
+            back : function(n) {
+                //向后
+                for(let i = 0; i < n; i++) {
+                    if(this.nowNode.next === null) {
+                        break
+                    }
+                    this.nowNode = this.nowNode.next
+                }
+                return this.nowNode
+            },
+            show : function() {
+                //显示当前节点
+                return this.nowNode
+            },
+            display : function(callback) {
+                //循环遍历所有节点
+                callback(this.node)
             }
         }
 
         const link = new linkTable()
         
         //Debug
-        link.insert("One")
-        link.insert("Two")
-        link.insert("There")
-        link.delete("One")
-        link.find("Two")
+        // link.insert("One")
+        // link.insert("Two")
+        // link.insert("There")
+        // link.delete("One")
+        // link.find("Two")
         
-        console.log(link)
+        // console.log(link)
+        
+        const s1 = prompt("语文成绩")
+        const s2 = prompt("数学成绩")
+        const s3 = prompt("英语成绩")
+        link.insert(s1)
+        link.insert(s2)
+        link.insert(s3)
+        link.back(12)
+        link.advance(2)
+        console.log(link.show())
+        
+        //练习题：
+            //advance(n) 在链表向前移动n个节点
+            //back(n)  在双向链表中向后移动n个节点
+            //show()    只显示当前节点
+            //display() 循环显示链表
+            //1. 实现advance(n)方法
+            //使用单向链表写一段程序，记录用户输入的一组测验成绩
+            //用双向链表重写例6-4程序
     </script>
 </body>
 </html>
