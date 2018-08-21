@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //集合：无序、无重复的数据集
+        //  并集：两个集合合并成一个新的集合,去除相同成员
+        //  交集：两个集合相同成员合并成一个新的集合
+        //  补集：两个集合不存在相同成员合并成一个新的集合
+        
+
+        function Set() {
+            this.data = []
+        }
+  
+        Set.prototype = {
+            constructor : Set,
+            add : function(val) {
+                return this.data.includes(val) ? null : this.data.push(val)
+            },
+            remove : function(val) {
+                const index = this.data.findIndex(value => value === val)
+                return index !== undefined ? this.data.splice(index, 1) : null
+            },
+            size : function() {
+                return this.data.length
+            },
+            //交集
+            intersect : function(data) {
+                const arr = []
+                data.map(val => {
+                    if(Array.isArray(val)) {
+                        arguments.callee.call(this, val)
+                        return 
+                    } 
+                    
+                    if(this.data.includes(val)) {
+                        arr.push(val)
+                        return
+                    }
+                })
+                this.data = arr
+            },
+            //并集
+            union : function(data) {
+                data.map(val => {
+                    if(Array.isArray(val)) {
+                        arguments.callee.call(this, val)
+                        return 
+                    } 
+
+                    if(this.data.includes(val)) {
+                        return
+                    }
+
+                    this.data.push(val)
+                })
+            },
+            //data是否是子集
+            subset : function(data) {
+                return data.every(val => this.data.includes(val))
+            },
+            //补集
+            difference : function(data) {               
+                data.map(val => {
+                    if(Array.isArray(val)) {
+                        arguments.callee.call(this, val)
+                        return 
+                    } 
+                    
+                    if(!this.data.includes(val)) {
+                        this.data.push(val)
+                        return
+                    }
+
+                    const index = this.data.findIndex(value => value === val)
+                    this.data.splice(index, 1)
+                })
+            },
+            show : function() {
+                return this.data
+            },
+            sort : function() {
+                this.data.sort()
+            },
+            hegher : function(num) {
+                //该方法返回比传入元素大的元素中最小那个
+                const data = this.data.filter(val => val > num)
+                return Math.min(...data)
+            },
+            lower : function(num) {
+                //该方法返回比传入元素小的元素中最大那个
+                const data = this.data.filter(val => val < num)
+                return Math.max(...data)
+            }
+        }
+
+        const s = new Set()
+        s.add(2)
+        s.add(3)
+        s.add(5)
+        s.add(1)
+        console.log(s.hegher(2))
+        // console.log(s)
+
+       function Node(element) {
+           this.element = element
+           this.next = null
+           this.prev = null
+       }
+       /*
+        function Set() {
+            this.head = new Node("head")
+            this.length = 0;
+        }
+        
+        Set.prototype = {
+            constructor : Set,
+            add : function(el) {
+               const newNode = new Node(el)
+            
+               let node = this.each()
+               //node.next === null
+               newNode.prev = node
+               node.next = newNode
+
+               this.length++
+            },
+            remove : function(el) {
+                let node = this.each(el)
+                
+                node.next = node.next.next
+                node.next.prev = node
+
+                this.length--
+            },
+            size : function() {
+               return this.length
+            },
+            //交集
+            intersect : function(data) {
+                
+            },
+            //并集
+            union : function(data) {
+                
+            },
+            //data是否是子集
+            subset : function(data) {
+                
+            },
+            //补集
+            difference : function(data) {               
+ 
+            },
+            show : function() {
+                return this.head
+            },
+            each : function(el = undefined) {
+                let node = this.head
+                while(node.next) {
+                    if(el === node.next.element) {
+                        break
+                    }
+                    node = node.next
+                }
+
+                return node
+            }
+        }
+        */
+
+        //DeBug
+        // const s = new Set()
+        // s.add("tom")
+        // s.add("jy")
+        // s.add("j")
+        // s.add("i")
+        // s.remove("jy")
+        // //s.intersect(["tom", "n", "j"])
+        // //s.difference(["tom", "n", "j"])
+        // //console.log(s.subset(["tom", "p"]))
+        // console.log(s)
+        
+        // 1.修改Set类，使里面的元素按顺序存储。
+        // 2.将存储方式从数组替换成链表
+        // 3. 为Set类添加一个hegher(element)方法，该方法返回比传入元素大的元素中最小那个
+        // 4.为Set类添加一个lower(element)方法，该方法返回比传入元素小的元素中最大那个
+    </script>
+</body>
+</html>

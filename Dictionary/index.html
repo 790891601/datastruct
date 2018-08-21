@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Dictionary() {
+            this.data = {}
+        }
+
+        Dictionary.prototype = {
+            constructor : Dictionary,
+            insert : function(key, value) {
+                this.data[key] = value
+                return this.data
+            },
+            delete : function(key) {
+                delete this.data[key]
+                return this.data
+            }
+        }
+
+        //Debug
+        const dictionary = new Dictionary()
+        dictionary.insert("k", "v")
+        dictionary.insert("k2", "v2")
+        dictionary.delete("k")
+    </script>
+</body>
+</html>

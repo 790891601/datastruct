@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //散列表(Hash Table)：也叫哈希表, 能够生成唯一的键,键对应的值实现快速查找
+        //设计一个哈希函数计算键的唯一
+        
+
+        function HashTable() {
+            this.data = new Array(177)
+            this.hash = null
+            this.length = 0
+        }
+
+        HashTable.prototype = {
+            constructor : HashTable,
+            hashFunc : function(key) {
+                let sum = !isNaN(key) || 0;
+                for(let i = 0; i < key.length; i++) {
+                    sum += key.charCodeAt(i)
+                }
+                //哈希函数：转换值为哈希值
+                return sum % this.data.length
+            },
+            betterHash(key) {
+                const H = 37
+                let total = 0
+                for(let i = 0; i < key.length; i++) {
+                    total += total * H + key.charCodeAt(i)
+                }
+                const rst = total % this.data.length
+
+                return rst
+            },
+            put : function(key, val) {
+                this.data[this.betterHash(key)] = val
+                this.length++
+            },
+            get : function(key) {
+                return this.data[this.betterHash(key)]
+            },
+            has :function(key) {
+                return this.get(key) ? true : false
+            },
+            remove : function(key) {
+                delete this.data[this.betterHash(key)]
+            },
+            size : function() {
+
+            },
+            clear : function() {
+                this.data = new Array(277)
+            }
+        }
+
+        const h = new HashTable()
+        h.put("127", "哈喽")
+        h.put("128", "hello world!")
+        h.put("129", "tom")
+        console.log(h)
+    </script>
+</body>
+</html>
